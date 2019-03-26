@@ -23,16 +23,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/kubernetes/test/e2e/framework"
+	"k8s.io/kubernetes/test/e2e/framework/ingress"
 )
 
 var _ = framework.KubeDescribe("Ingress ALB creation", func() {
 	f := framework.NewDefaultFramework("ingress")
 	var (
 		cs  kubernetes.Interface
-		jig *framework.IngressTestJig
+		jig *ingress.IngressTestJig
 	)
 	BeforeEach(func() {
-		jig = framework.NewIngressTestJig(f.ClientSet)
+		jig = ingress.NewIngressTestJig(f.ClientSet)
 		cs = f.ClientSet
 	})
 

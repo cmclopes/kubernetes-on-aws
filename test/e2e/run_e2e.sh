@@ -103,9 +103,19 @@ export KUBECONFIG="$KUBECONFIG"
 # * conformance tests
 # * statefulset tests
 # * custom 'zalando' tests
+#
+# Broken e2e tests are disabled
+#
+# * "should support remote command execution over websockets [NodeConformance] [Conformance]"
+#   https://github.com/kubernetes/kubernetes/pull/73046
+#   Fixed in v1.14.0
+#
+# * "should support retrieving logs from the container over websockets [NodeConformance] [Conformance]"
+#   https://github.com/kubernetes/kubernetes/pull/73046
+#   Fixed in v1.14.0
 ginkgo -nodes=25 -flakeAttempts=2 \
     -focus="(\[Conformance\]|\[StatefulSetBasic\]|\[Feature:StatefulSet\]\s\[Slow\].*CockroachDB|\[Zalando\])" \
-    -skip="(\[Serial\]|\[Egress\])" \
+    -skip="(should.support.retrieving.logs.from.the.container.over.websockets|should.support.remote.command.execution.over.websockets|\[Serial\]|\[Egress\])" \
     "e2e.test" -- -delete-namespace-on-failure=false
 
 # delete cluster
